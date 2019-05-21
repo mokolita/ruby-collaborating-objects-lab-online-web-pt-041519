@@ -24,7 +24,7 @@ class Artist
   end 
   
   def self.create(name)   
-    artist = Artist.new(name)
+    artist = Artist.new(name) unless artist.name == name 
     artist.save
     artist
   end
