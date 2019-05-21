@@ -1,34 +1,22 @@
-require 'pry'
+class Song
 
-class Song 
-  
-  attr_accessor :name
-  attr_reader :artist  
-  @@all = [] 
-  
+  attr_accessor :name, :artist
+
   def initialize(name)
-    @name = name 
-  end 
-  
-  def name=(name)
-    @name = name 
-  end 
-  
-  def artist=(name)
-    self.artist = Artist.find_or_create_by_name(name)
-  end
-  
-  def artist
-    @artist
-  end 
-  
-  def self.new_by_filename(file)
-    song_info = file.chomp(".mp3").split(" - ")
-    song = Song.new(song_info[1])
-    song.artist = (song_info[0])
-    song
+    @name = name
   end
 
-  
-   
-end 
+  def self.new_by_filename(file_name)
+    song = file_name.split(" - ")[1]
+    artist = file_name.split(" - ")[0]
+    new_song = self.new(song)
+    new_song.artist_name = artist
+    new_song
+  end
+
+  def artist_name=(name)
+    self.artist = Artist.find_or_create_by_name(name)
+    artist.add_song(self)
+  end
+
+end
