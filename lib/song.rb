@@ -27,6 +27,7 @@ class Song
     song_info = file.chomp(".mp3").split(" - ")
     song = Song.new(song_info[1])
     song.artist=(song_info[0])
+    binding.pry   
     song
   end
 
